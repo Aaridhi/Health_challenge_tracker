@@ -33,9 +33,3 @@
 
 ---
 
-## 📥 Installation & Setup
-
-### **1️⃣ Clone Repository**
-```bash
-git clone https://github.com/YOUR_GITHUB_USERNAME/health-challenge-tracker.git
-cd health-challenge-tracker
