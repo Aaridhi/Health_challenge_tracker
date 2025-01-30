@@ -32,4 +32,12 @@
 - **LocalStorage** for data persistence
 
 ---
+## 🧪 Code Coverage Report
+
+This project maintains **100% test coverage** for key components and services.
+
+### **How to Generate Code Coverage**
+Run the following command:
+```bash
+ng test --code-coverage
 
