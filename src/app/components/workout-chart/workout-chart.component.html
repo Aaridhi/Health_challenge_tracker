@@ -1,0 +1,18 @@
+<div class="chart-container" *ngIf="selectedUser">
+    <h3>{{ selectedUser.name }}'s Workout Progress</h3>
+  
+    <ngx-charts-bar-vertical
+      [view]="view"
+      [scheme]="colorScheme"  
+      [results]="workoutData"
+      [gradient]="true"
+      [xAxis]="true"
+      [yAxis]="true"
+      [legend]="true"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      xAxisLabel="Workout Type"
+      yAxisLabel="Minutes">
+    </ngx-charts-bar-vertical>
+  </div>
+  

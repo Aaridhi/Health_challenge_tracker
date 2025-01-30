@@ -1,0 +1,37 @@
+<div class="container">
+    <input type="text" [(ngModel)]="searchQuery" placeholder="Search by name" />
+    <select [(ngModel)]="filterType">
+      <option value="All">All</option>
+      <option value="Running">Running</option>
+      <option value="Cycling">Cycling</option>
+      <option value="Yoga">Yoga</option>
+    </select>
+  
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Workouts</th>
+        <th>Number of Workouts</th>
+        <th>Total Minutes</th>
+        <th>View Progress</th>
+      </tr>
+      <tr *ngFor="let user of filterWorkouts()">
+        <td>{{ user.name }}</td>
+        <td>{{ getWorkoutTypes(user) }}</td>
+        <td>{{ getWorkoutCount(user) }}</td>
+        <td>{{ getTotalMinutes(user) }}</td>
+        <td>
+          <button (click)="selectUserForChart(user)">View</button>
+        </td>
+      </tr>
+    </table>
+  
+    <div class="pagination">
+      <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+      <span>Page {{ currentPage }}</span>
+      <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= workouts.length">Next</button>
+    </div>
+  
+    <app-workout-chart [selectedUser]="selectedUser"></app-workout-chart>
+  </div>
+  
