@@ -16,6 +16,8 @@ export class WorkoutListComponent implements OnInit {
   searchQuery = '';
   filterType = 'All';
   selectedUser: UserWorkout | null = null;
+
+  // Pagination
   currentPage = 1;
   itemsPerPage = 5;
 
@@ -48,7 +50,14 @@ export class WorkoutListComponent implements OnInit {
       filtered = filtered.filter((u) => u.workouts.some((w) => w.type === this.filterType));
     }
 
-    return filtered.slice((this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage);
+    return filtered;
+  }
+
+  // Paginated workouts
+  getPaginatedWorkouts(): UserWorkout[] {
+    const filtered = this.filterWorkouts();
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    return filtered.slice(startIndex, startIndex + this.itemsPerPage);
   }
 
   selectUserForChart(user: UserWorkout) {
@@ -59,7 +68,7 @@ export class WorkoutListComponent implements OnInit {
   }
 
   nextPage() {
-    if (this.currentPage * this.itemsPerPage < this.workoutService.getWorkouts().length) {
+    if ((this.currentPage * this.itemsPerPage) < this.filterWorkouts().length) {
       this.currentPage++;
     }
   }

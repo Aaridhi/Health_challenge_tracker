@@ -1,42 +1,50 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { ChartOptions, ChartData, ChartType } from 'chart.js';
 import { CommonModule } from '@angular/common';
 import { UserWorkout } from '../../services/workout.service';
-import { NgChartsModule } from 'ng2-charts';
+import { NgxEchartsModule } from 'ngx-echarts';
+import { EChartsOption } from 'echarts';
 
 @Component({
   selector: 'app-workout-chart',
   standalone: true,
-  imports: [CommonModule, NgChartsModule],
+  imports: [CommonModule, NgxEchartsModule],
   templateUrl: './workout-chart.component.html',
   styleUrls: ['./workout-chart.component.css']
 })
 export class WorkoutChartComponent implements OnChanges {
   @Input() selectedUser: UserWorkout | null = null;
-
-  chartData: ChartData<'bar'> = { labels: [], datasets: [] };
-  chartOptions: ChartOptions<'bar'> = {
-    responsive: true,
-    maintainAspectRatio: false
-  };
+  chartOptions: EChartsOption = {};
 
   ngOnChanges() {
-    this.updateChart();
+    if (this.selectedUser) {
+      this.updateChart();
+    }
   }
 
   updateChart() {
-    if (!this.selectedUser) {
-      this.chartData = { labels: [], datasets: [] };
-      return;
-    }
+    if (!this.selectedUser) return;
 
-    this.chartData = {
-      labels: this.selectedUser.workouts.map(w => w.type),
-      datasets: [
+    const workoutMinutes = this.selectedUser.workouts.map(w => w.minutes);
+    const workoutTypes = this.selectedUser.workouts.map(w => w.type);
+
+    this.chartOptions = {
+      title: {
+        text: `${this.selectedUser.name}'s Workout Progress`,
+        left: 'center'
+      },
+      tooltip: {},
+      xAxis: {
+        type: 'category',
+        data: workoutTypes
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
         {
-          label: 'Minutes',
-          data: this.selectedUser.workouts.map(w => w.minutes),
-          backgroundColor: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+          data: workoutMinutes,
+          type: 'bar',
+          color: '#3b82f6'
         }
       ]
     };
