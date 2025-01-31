@@ -28,9 +28,8 @@ export class WorkoutService {
       this.workouts = JSON.parse(storedData);
     } else {
       this.workouts = [
-        { id: 1, name: 'John Doe', workouts: [{ type: 'Running', minutes: 30 }, { type: 'Cycling', minutes: 45 }] },
-        { id: 2, name: 'Jane Smith', workouts: [{ type: 'Swimming', minutes: 60 }, { type: 'Running', minutes: 20 }] },
-        { id: 3, name: 'Mike Johnson', workouts: [{ type: 'Yoga', minutes: 50 }, { type: 'Cycling', minutes: 40 }] }
+        { id: 1, name: 'John Doe', workouts: [{ type: 'Running', minutes: 30 }] },
+        { id: 2, name: 'Jane Smith', workouts: [{ type: 'Swimming', minutes: 60 }] },
       ];
       this.saveWorkouts();
     }
@@ -45,10 +44,17 @@ export class WorkoutService {
   }
 
   addWorkout(name: string, type: string, minutes: number) {
+    if (!name.trim() || !type.trim() || minutes <= 0) {
+      return; // Prevent empty or invalid workouts
+    }
+
     const existingUser = this.workouts.find(user => user.name.toLowerCase() === name.toLowerCase());
 
     if (existingUser) {
-      existingUser.workouts.push({ type, minutes });
+      const existingWorkout = existingUser.workouts.find(workout => workout.type === type);
+      if (!existingWorkout) {
+        existingUser.workouts.push({ type, minutes });
+      }
     } else {
       const newUser: UserWorkout = {
         id: this.workouts.length + 1,

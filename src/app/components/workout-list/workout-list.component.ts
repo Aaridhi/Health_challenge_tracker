@@ -42,8 +42,10 @@ export class WorkoutListComponent implements OnInit {
   filterWorkouts(): UserWorkout[] {
     let filtered = this.workoutService.getWorkouts();
 
-    if (this.searchQuery) {
-      filtered = filtered.filter((u) => u.name.toLowerCase().includes(this.searchQuery.toLowerCase()));
+    if (this.searchQuery.trim()) {
+      filtered = filtered.filter((u) =>
+        u.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
     }
 
     if (this.filterType !== 'All') {
@@ -53,7 +55,6 @@ export class WorkoutListComponent implements OnInit {
     return filtered;
   }
 
-  // Paginated workouts
   getPaginatedWorkouts(): UserWorkout[] {
     const filtered = this.filterWorkouts();
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
@@ -77,5 +78,8 @@ export class WorkoutListComponent implements OnInit {
     if (this.currentPage > 1) {
       this.currentPage--;
     }
+  }
+  resetPagination(): void {
+    this.currentPage = 1;
   }
 }
