@@ -1,61 +1,64 @@
-# HealthChallengeTracker
+# 📌 Health Challenge Tracker
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.5.
-#Deployed Link: https://healthtracker123.netlify.app/
+## 🏆 Assignment Submission
 
-## Development server
+This project is developed as part of a **Frontend Development Challenge**, implementing a **fitness tracking application** using **Angular 14+**. The application provides users with the ability to log workouts, track fitness progress, and visualize workout data effectively.
 
-To start a local development server, run:
+---
 
+## 📌 Deployed Application
+
+🔗 **Live Link:** [Health Challenge Tracker](https://healthtracker123.netlify.app/)
+
+---
+
+## 📌 Project Overview
+
+### 🎯 Objective:
+The **Health Challenge Tracker** is designed to:
+- Allow **users to input and log workouts** (Name, Workout Type, Duration).
+- Provide a **tabular display of workouts** with **search and filter** functionalities.
+- Implement **pagination** for ease of navigation.
+- Store data in **LocalStorage** for persistent state management.
+- Visualize **workout progress using interactive charts** (Bonus Feature).
+- Ensure **100% unit test code coverage** with a **code coverage report**.
+
+### 🚀 Technologies Used:
+| Technology | Purpose |
+|------------|---------|
+| **Angular 14+** | Frontend Development Framework |
+| **TypeScript** | Strongly Typed JavaScript |
+| **Tailwind CSS** | Styling Framework |
+| **Bootstrap & PrimeNG** | UI Enhancements |
+| **Karma & Jasmine** | Unit Testing |
+| **Jest** | Code Coverage Analysis |
+| **GitHub** | Version Control |
+| **Netlify** | Application Deployment |
+
+---
+
+## 🛠 Features Implemented
+
+✅ **User Input for Workout Details**  
+✅ **Workout List Displayed in a Tabular Format**  
+✅ **Search & Filter Functionalities**  
+✅ **Data Persistence Using LocalStorage**  
+✅ **Pagination for Large Data Sets**  
+✅ **Unit Testing for 1 Component & 1 Service**  
+✅ **Achieved 100% Code Coverage**  
+✅ **Deployment on Netlify**  
+✅ **Bonus Feature: Workout Progress Visualization Using Charts**  
+
+---
+
+## 🖥️ Setup and Installation Guide
+
+### 1️⃣ Prerequisites
+Ensure you have the following installed:
+- **Node.js (v16 or later)**
+- **Angular CLI**
+- **Git**
+
+Check if Angular CLI is installed:
 ```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-
+ng version
