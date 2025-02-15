@@ -21,6 +21,11 @@ export class WorkoutListComponent implements OnInit {
   currentPage = 1;
   itemsPerPage = 5;
 
+  // ✅ Add missing properties
+  userName: string = '';
+  selectedWorkout: string = '';
+  workoutMinutes: number | null = null;
+
   constructor(private workoutService: WorkoutService) {}
 
   ngOnInit() {
@@ -79,7 +84,31 @@ export class WorkoutListComponent implements OnInit {
       this.currentPage--;
     }
   }
+
   resetPagination(): void {
     this.currentPage = 1;
+  }
+
+  // ✅ Add function to handle adding a workout
+  addWorkout() {
+    if (!this.userName.trim() || !this.selectedWorkout || !this.workoutMinutes) {
+      alert('Please fill out all fields before adding a workout.');
+      return;
+    }
+
+    let user = this.workouts.find(u => u.name.toLowerCase() === this.userName.toLowerCase());
+
+    if (!user) {
+      user = { id: this.workouts.length + 1, name: this.userName, workouts: [] };
+      this.workouts.push(user);
+    }
+
+    user.workouts.push({ type: this.selectedWorkout, minutes: this.workoutMinutes });
+
+    this.userName = '';
+    this.selectedWorkout = '';
+    this.workoutMinutes = null;
+
+    this.resetPagination();
   }
 }

@@ -1,37 +1,81 @@
-<div class="container">
-  <input type="text" [(ngModel)]="searchQuery" placeholder="Search by name" />
-  <select [(ngModel)]="filterType">
-    <option value="All">All</option>
-    <option value="Running">Running</option>
-    <option value="Cycling">Cycling</option>
-    <option value="Yoga">Yoga</option>
-  </select>
+<div class="max-w-4xl mx-auto p-6">
+  <!-- <h1 class="text-3xl font-bold text-center mb-6">Health Challenge Tracker</h1> -->
 
-  <table>
-    <tr>
-      <th>Name</th>
-      <th>Workouts</th>
-      <th>Number of Workouts</th> <!-- ✅ New Column -->
-      <th>Total Minutes</th>
-      <th>View Progress</th>
-    </tr>
-    <tr *ngFor="let user of getPaginatedWorkouts()">
-      <td>{{ user.name }}</td>
-      <td>{{ getWorkoutTypes(user) }}</td>
-      <td>{{ getWorkoutCount(user) }}</td> <!-- ✅ New Column -->
-      <td>{{ getTotalMinutes(user) }}</td>
-      <td>
-        <button (click)="selectUserForChart(user)">View</button>
-      </td>
-    </tr>
-  </table>
-
-  <!-- Pagination Controls -->
-  <div class="pagination-controls">
-    <button (click)="prevPage()" [disabled]="currentPage === 1">« Previous</button>
-    <span>Page {{ currentPage }}</span>
-    <button (click)="nextPage()" [disabled]="(currentPage * itemsPerPage) >= filterWorkouts().length">Next »</button>
+  <!-- Search & Filter -->
+  <div class="flex flex-col md:flex-row gap-4 mb-4">
+    <input
+      type="text"
+      [(ngModel)]="searchQuery"
+      placeholder="Search by name"
+      class="border border-gray-300 rounded-md px-4 py-2 w-full md:w-1/2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
+    <select
+      [(ngModel)]="filterType"
+      class="border border-gray-300 rounded-md px-4 py-2 w-full md:w-1/3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+    >
+      <option value="All">All</option>
+      <option value="Running">Running</option>
+      <option value="Cycling">Cycling</option>
+      <option value="Yoga">Yoga</option>
+    </select>
   </div>
 
+  <!-- Table -->
+  <div class="overflow-x-auto shadow-lg rounded-lg">
+    <table class="w-full border-collapse bg-white text-sm text-left">
+      <thead>
+        <tr class="bg-blue-500 text-white">
+          <th class="px-6 py-3">Name</th>
+          <th class="px-6 py-3">Workouts</th>
+          <th class="px-6 py-3">Total Workouts</th>
+          <th class="px-6 py-3">Total Minutes</th>
+          <th class="px-6 py-3">View Progress</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of getPaginatedWorkouts()" class="border-b hover:bg-gray-100">
+          <td class="px-6 py-3">{{ user.name }}</td>
+          <td class="px-6 py-3">{{ getWorkoutTypes(user) }}</td>
+          <td class="px-6 py-3 text-center">{{ getWorkoutCount(user) }}</td>
+          <td class="px-6 py-3 text-center">{{ getTotalMinutes(user) }}</td>
+          <td class="px-6 py-3">
+            <button
+              (click)="selectUserForChart(user)"
+              class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+            >
+              View
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination Controls -->
+  <div class="flex justify-center items-center mt-6 w-full">
+    <button
+      (click)="prevPage()"
+      [disabled]="currentPage === 1"
+      class="px-6 py-2 bg-gray-300 rounded-md disabled:opacity-50 hover:bg-gray-400 transition duration-300"
+    >
+      « Previous
+    </button>
+    
+    <span class="text-lg font-semibold mx-6 px-6 py-2 bg-blue-100 rounded-md">
+      Page {{ currentPage }}
+    </span>
+    
+    <button
+      (click)="nextPage()"
+      [disabled]="(currentPage * itemsPerPage) >= filterWorkouts().length"
+      class="px-6 py-2 bg-gray-300 rounded-md disabled:opacity-50 hover:bg-gray-400 transition duration-300"
+    >
+      Next »
+    </button>
+  </div>
+
+
+
+  <!-- Workout Chart -->
   <app-workout-chart [selectedUser]="selectedUser"></app-workout-chart>
 </div>

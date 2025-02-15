@@ -13,20 +13,40 @@ import { WorkoutService } from '../../services/workout.service';
 export class WorkoutFormComponent {
   userName = '';
   workoutType = '';
-  workoutMinutes: number | null = null;
+  workoutMinutes: number = 0;  // ✅ Default to 0 instead of null
+
+  // ✅ Error states for input validation
+  nameError = false;
+  typeError = false;
+  minutesError = false;
 
   constructor(private workoutService: WorkoutService) {}
 
   addWorkout() {
-    if (this.userName && this.workoutType && this.workoutMinutes && this.workoutMinutes > 0) {
-      this.workoutService.addWorkout(this.userName, this.workoutType, this.workoutMinutes);
-      this.resetForm();
+    // Reset previous error states
+    this.nameError = this.userName.trim() === '';
+    this.typeError = this.workoutType === '';
+    this.minutesError = this.workoutMinutes <= 0;
+
+    // ✅ Stop execution if validation fails
+    if (this.nameError || this.typeError || this.minutesError) {
+      return;
     }
+
+    // ✅ If all inputs are valid, add workout
+    this.workoutService.addWorkout(this.userName, this.workoutType, this.workoutMinutes);
+    this.resetForm();
   }
 
   resetForm() {
     this.userName = '';
     this.workoutType = '';
-    this.workoutMinutes = null;
+    this.workoutMinutes = 0;  // ✅ Reset to 0 instead of null
+  }
+
+  validateMinutes() {
+    if (!this.workoutMinutes || this.workoutMinutes <= 0) {
+      this.workoutMinutes = 0;
+    }
   }
 }

@@ -1,15 +1,43 @@
 <div class="container">
-    <h2>Add Workout</h2>
-    <div class="form">
-      <input type="text" [(ngModel)]="userName" placeholder="User Name" />
-      <select [(ngModel)]="workoutType">
-        <option value="" disabled selected>Select Workout Type</option>
-        <option value="Running">Running</option>
-        <option value="Cycling">Cycling</option>
-        <option value="Yoga">Yoga</option>
-      </select>
-      <input type="number" [(ngModel)]="workoutMinutes" placeholder="Minutes" />
-      <button (click)="addWorkout()">Add Workout</button>
-    </div>
+  <h2 class="text-xl font-semibold mb-4">Add Workout</h2>
+  <div class="form flex flex-col gap-4">
+    <!-- User Name Input -->
+    <input 
+      type="text" 
+      [(ngModel)]="userName" 
+      placeholder="User Name"
+      class="border border-gray-300 rounded-md px-4 py-3 w-full md:w-96 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
+    <p *ngIf="nameError" class="text-red-500 text-sm">User name is required.</p>
+
+    <!-- Workout Type Dropdown -->
+    <select 
+      [(ngModel)]="workoutType"
+      class="border border-gray-300 rounded-md px-4 py-3 w-full md:w-96 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none"
+    >
+      <option value="" disabled selected>Select Workout Type</option>
+      <option value="Running">Running</option>
+      <option value="Cycling">Cycling</option>
+      <option value="Yoga">Yoga</option>
+    </select>
+    <p *ngIf="typeError" class="text-red-500 text-sm">Please select a workout type.</p>
+
+    <!-- Workout Minutes Input -->
+    <input 
+      type="number" 
+      [(ngModel)]="workoutMinutes" 
+      placeholder="Minutes"
+      (change)="validateMinutes()"
+      class="border border-gray-300 rounded-md px-4 py-3 w-full md:w-96 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
+    <p *ngIf="minutesError" class="text-red-500 text-sm">Minutes must be greater than 0.</p>
+
+    <!-- Add Workout Button -->
+    <button 
+      (click)="addWorkout()" 
+      class="bg-blue-500 text-white font-semibold px-4 py-3 rounded-md w-full md:w-96 text-lg hover:bg-blue-600 transition"
+    >
+      Add Workout
+    </button>
   </div>
-  
+</div>
